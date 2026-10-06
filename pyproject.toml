@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dwrap"
+version = "0.1.0"
+description = "Wrap files in eponymous directories (dwrap = directory wrap)"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.8"
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/lorenzowood/dwrap"
+
+[project.scripts]
+dwrap = "dwrap:main"
+
+[tool.setuptools]
+py-modules = ["dwrap"]

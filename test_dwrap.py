@@ -78,7 +78,7 @@ def test_dry_run_simulates_clash_between_items(cd, capsys):
 def test_missing_path_reports_error_and_continues(cd, capsys):
     (cd / "a.mkv").write_text("x")
     assert main(["nope", "a.mkv"]) == 1
-    assert (cd / "a.mkv" / "a.mkv").exists()
+    assert (cd / "a" / "a.mkv").exists()
     assert "nope" in capsys.readouterr().err
 
 

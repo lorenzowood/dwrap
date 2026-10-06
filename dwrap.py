@@ -28,9 +28,9 @@ def unique_dir(parent, name, file, reserved):
     return candidate
 
 
-def wrap(file, strip_extensions, dry_run, reserved):
+def wrap(file, preserve_extensions, dry_run, reserved):
     parent = file.parent
-    name = file.stem if strip_extensions else file.name
+    name = file.name if preserve_extensions else file.stem
     target = unique_dir(parent, name, file, reserved)
     reserved.add(target)
     if target.name != name:
@@ -59,9 +59,9 @@ def main(argv=None):
     parser.add_argument("paths", nargs="+", metavar="PATH", help="files to wrap (directories are ignored)")
     parser.add_argument("--dry-run", action="store_true", help="show what would be done without doing it")
     parser.add_argument(
-        "--strip-extensions",
+        "--preserve-extensions",
         action="store_true",
-        help="name the directory after the file without its extension",
+        help="name the directory after the full file name, including its extension",
     )
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     args = parser.parse_args(argv)
@@ -77,7 +77,7 @@ def main(argv=None):
             continue
         else:
             try:
-                wrap(path, args.strip_extensions, args.dry_run, reserved)
+                wrap(path, args.preserve_extensions, args.dry_run, reserved)
             except OSError as e:
                 print(f"dwrap: {p}: {e}", file=sys.stderr)
                 status = 1
